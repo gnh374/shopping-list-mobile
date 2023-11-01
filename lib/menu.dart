@@ -3,59 +3,56 @@ import 'package:flutter/material.dart';
 class MyHomePage extends StatelessWidget {
     MyHomePage({Key? key}) : super(key: key);
     final List<ShopItem> items = [
-    ShopItem("View Products", Icons.checklist),
-    ShopItem("Add Product", Icons.add_shopping_cart),
+    ShopItem("Lihat Produk", Icons.checklist),
+    ShopItem("Tambah Produk", Icons.add_shopping_cart),
     ShopItem("Logout", Icons.logout),
-    ];
+];
     @override
     Widget build(BuildContext context) {
         return Scaffold(
-  appBar: AppBar(
-    title: const Text(
-      'Shopping List',
-    ),
-  ),
-  body: SingleChildScrollView(
-    // Scrolling wrapper widget
-    child: Padding(
-      padding: const EdgeInsets.all(10.0), // Set padding for the page
-      child: Column(
-        // Widget to display children vertically
-        children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-            // Text widget to display text with center alignment and appropriate style
-            child: Text(
-              'PBP Shop', // Text indicating the shop name
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          // Grid layout
-          GridView.count(
-            // Container for our cards.
-            primary: true,
-            padding: const EdgeInsets.all(20),
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            crossAxisCount: 3,
-            shrinkWrap: true,
-            children: items.map((ShopItem item) {
-              // Iteration for each item
-              return ShopCard(item);
-            }).toList(),
-          ),
-        ],
+      appBar: AppBar(
+        title: const Text(
+          'Shopping List',
+        ),
       ),
-    ),
-  ),
-);
-
-
-
+      body: SingleChildScrollView(
+        // Widget wrapper yang dapat discroll
+        child: Padding(
+          padding: const EdgeInsets.all(10.0), // Set padding dari halaman
+          child: Column(
+            // Widget untuk menampilkan children secara vertikal
+            children: <Widget>[
+              const Padding(
+                padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                // Widget Text untuk menampilkan tulisan dengan alignment center dan style yang sesuai
+                child: Text(
+                  'PBP Shop', // Text yang menandakan toko
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              // Grid layout
+              GridView.count(
+                // Container pada card kita.
+                primary: true,
+                padding: const EdgeInsets.all(20),
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                crossAxisCount: 3,
+                shrinkWrap: true,
+                children: items.map((ShopItem item) {
+                  // Iterasi untuk setiap item
+                  return ShopCard(item);
+                }).toList(),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
     }
 }
 class ShopItem {
@@ -64,26 +61,27 @@ class ShopItem {
 
   ShopItem(this.name, this.icon);
 }
+
 class ShopCard extends StatelessWidget {
   final ShopItem item;
 
-  const ShopCard(this.item, {Key? key}); // Constructor
+  const ShopCard(this.item, {super.key}); // Constructor
 
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.indigo,
       child: InkWell(
-        // Responsive touch area
+        // Area responsive terhadap sentuhan
         onTap: () {
-          // Show a SnackBar when clicked
+          // Memunculkan SnackBar ketika diklik
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
-                content: Text("You pressed the ${item.name} button!")));
+                content: Text("Kamu telah menekan tombol ${item.name}!")));
         },
         child: Container(
-          // Container to hold Icon and Text
+          // Container untuk menyimpan Icon dan Text
           padding: const EdgeInsets.all(8),
           child: Center(
             child: Column(
@@ -108,5 +106,3 @@ class ShopCard extends StatelessWidget {
     );
   }
 }
-
-
